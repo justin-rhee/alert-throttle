@@ -1,0 +1,46 @@
+name: tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Show interpreter versions (a platform claim must match what ran)
+        shell: bash
+        run: |
+          echo "os: ${{ matrix.os }}"
+          bash --version | head -1
+          /bin/bash --version | head -1 || true
+          python3 --version || true
+
+      - name: Run offline test suites
+        shell: bash
+        run: |
+          set -uo pipefail
+          ran=0
+          fail=0
+          for f in tests/test*.sh; do
+            [ -e "$f" ] || continue
+            echo "== bash $f"
+            bash "$f" || fail=1
+            ran=$((ran + 1))
+          done
+          for f in tests/test*.py; do
+            [ -e "$f" ] || continue
+            echo "== python3 $f"
+            python3 "$f" || fail=1
+            ran=$((ran + 1))
+          done
+          if [ "$ran" -eq 0 ]; then
+            echo "FAIL: no test files matched tests/test*.sh or tests/test*.py" >&2
+            exit 1
+          fi
+          [ "$fail" -eq 0 ] || { echo "FAIL: a test suite exited non-zero" >&2; exit 1; }
+          echo "ran $ran test file(s); all passed"

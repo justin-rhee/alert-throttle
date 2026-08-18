@@ -1,0 +1,13 @@
+{
+  "name": "alert-throttle",
+  "version": "1.0.0",
+  "description": "Deduplicates repeat alerts and widens the gap between them",
+  "type": "module",
+  "license": "MIT",
+  "author": "Justin Rhee",
+  "repository": { "type": "git", "url": "https://github.com/justin-rhee/alert-throttle.git" },
+  "engines": { "node": ">=22" },
+  "exports": { ".": "./src/alert-throttle.ts" },
+  "files": ["src", "README.md", "LICENSE", "SECURITY.md"],
+  "scripts": { "test": "bash tests/run.sh" }
+}
