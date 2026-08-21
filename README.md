@@ -54,13 +54,16 @@ decideAlert(state, alertLine, Date.now(), {
 
 ## What it won't do
 
-It doesn't persist anything. Loading the state before the call and saving it after is on you. Throw the returned state away and you're back to the original bug: every call looks like a first sighting, and every call posts.
-
-It doesn't read the clock. You pass now in yourself, which is what makes it testable with any timestamp you like and keeps this module from quietly depending on wall clock time.
-
-The digit-collapse key means two conditions that differ only by a number are treated as one condition. That's deliberate rather than a defect, and it means you should not put anything in an alert line that needs to stay distinct when the only difference is a number.
-
-It throttles delivery. It doesn't detect problems, decide what counts as a failure, or know anything about what the alert line means. All of that logic stays on your side of the call.
+- persist anything, since loading the state before the call and saving it after is on
+  you, and throwing the returned state away puts you back on the original bug where
+  every call looks like a first sighting and every call posts
+- read the clock, since you pass `now` in yourself, which is what makes it testable
+  with any timestamp and keeps it from quietly depending on wall clock time
+- tell apart two conditions that differ only by a number, because the digit-collapse
+  key treats them as one, so nothing that has to stay distinct on a number belongs in
+  an alert line
+- detect problems, decide what counts as a failure, or know what the alert line means,
+  since it throttles delivery and the rest stays on your side of the call
 
 ## How I tested it
 
@@ -84,4 +87,4 @@ Design decisions and what changed while building it: [docs/ADR.md](docs/ADR.md).
 
 ---
 
-This little tool is one of a handful I pulled out of my own day-to-day agent setup. I use them all myself, so when something breaks I usually notice fast. But if you spot something weird, or just want to ask how it works, open an issue. I read every one. More tools on my [GitHub profile](https://github.com/justin-rhee).
+This little tool is one of a handful I pulled out of my own day-to-day agent setup. I use them all myself, so when something breaks I usually notice fast. But if you run into any issues, or anything that looks off, open an issue. I read every one. More tools on my [GitHub profile](https://github.com/justin-rhee).
