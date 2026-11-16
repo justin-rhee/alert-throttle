@@ -1,13 +1,40 @@
 {
   "name": "alert-throttle",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Deduplicates repeat alerts and widens the gap between them",
   "type": "module",
-  "license": "MIT",
+  "main": "./dist/alert-throttle.js",
+  "types": "./dist/alert-throttle.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/alert-throttle.d.ts",
+      "import": "./dist/alert-throttle.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "SECURITY.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "bash tests/run.sh",
+    "build": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run build && npm test"
+  },
   "author": "Justin Rhee",
-  "repository": { "type": "git", "url": "https://github.com/justin-rhee/alert-throttle.git" },
-  "engines": { "node": ">=22" },
-  "exports": { ".": "./src/alert-throttle.ts" },
-  "files": ["src", "README.md", "LICENSE", "SECURITY.md"],
-  "scripts": { "test": "bash tests/run.sh" }
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justin-rhee/alert-throttle.git"
+  },
+  "homepage": "https://github.com/justin-rhee/alert-throttle#readme",
+  "bugs": "https://github.com/justin-rhee/alert-throttle/issues",
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "@types/node": "^22.0.0"
+  }
 }

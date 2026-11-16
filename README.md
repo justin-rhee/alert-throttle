@@ -1,11 +1,11 @@
 # alert-throttle
 
-[![tests](https://github.com/justin-rhee/alert-throttle/actions/workflows/test.yml/badge.svg)](https://github.com/justin-rhee/alert-throttle/actions/workflows/test.yml) [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![node >= 22](https://img.shields.io/badge/node-%3E%3D22-brightgreen.svg) ![zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg)
+[![tests](https://github.com/justin-rhee/alert-throttle/actions/workflows/test.yml/badge.svg)](https://github.com/justin-rhee/alert-throttle/actions/workflows/test.yml) [![npm](https://img.shields.io/npm/v/alert-throttle.svg)](https://www.npmjs.com/package/alert-throttle) [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![node >= 22](https://img.shields.io/badge/node-%3E%3D22-brightgreen.svg) ![zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg)
 
 Stops a monitoring loop from posting the same alert over and over, and tells you how many repeats it held back.
 
 ```ts
-import { decideAlert } from "./alert-throttle.ts";
+import { decideAlert } from "alert-throttle";
 
 let state = {};
 const t0 = Date.parse("2026-11-13T12:00:00Z");
@@ -25,14 +25,11 @@ A monitoring loop of mine kept finding a stuck condition and kept posting about 
 
 ## Install
 
-Copy `src/alert-throttle.ts` into your project. It's about 140 lines with no dependencies, and runs under Node 22 or newer, which reads TypeScript directly.
-
 ```sh
-git clone https://github.com/justin-rhee/alert-throttle
-cp alert-throttle/src/alert-throttle.ts your-project/src/
+npm install alert-throttle
 ```
 
-To use a different schedule, pass options as a fourth argument: `{ backoffMs: [15 * 60_000, 60 * 60_000], staleMs: 24 * 60 * 60_000 }`.
+Node 22 or newer. No dependencies. It ships compiled JavaScript with type definitions. Rather vendor it? Copy `src/alert-throttle.ts` into your project instead: about 140 lines, and Node 22 reads TypeScript directly.
 
 ## How it works
 
